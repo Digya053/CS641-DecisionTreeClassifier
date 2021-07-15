@@ -33,9 +33,7 @@ class Stratify:
 		"""
 		n_samples = (self.n_percent * self.df.shape[0])
 		n = round(min(n_samples, self.df[self.column].value_counts().min()))
-		unique, counts = np.unique(self.df[self.column], return_counts=True)
-		y_count = dict(zip(unique, counts))
-		df_ = self.df.groupby(self.column).apply(lambda x: x.sample(round(n/len(Counter(y_count)))))
+		df_ = self.df.groupby(self.column).apply(lambda x: x.sample(round(n/2)))
 		df_.index = df_.index.droplevel(0)
 		return df_
 
